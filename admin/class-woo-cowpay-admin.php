@@ -173,6 +173,7 @@ class WooCowpayAdmin
 			'cowpay_callbackurl' => add_query_arg('action', 'cowpay', home_url('/')),
 			'environment' => 2,
 			'order_status' => "wc-processing",
+			'fees' => "",
 		);
 		register_setting('cowpay', 'cowpay_settings', array(
 			'type' => 'array',
@@ -199,16 +200,6 @@ class WooCowpayAdmin
 			'cowpay',
 			'cowpay_section_main'
 		);
-		// add_settings_field(
-		// 	'YOUR_AUTHORIZATION_TOKEN',
-		// 	esc_html__('Authorization Token', 'cowpay'),
-		// 	function () {
-		// 		$options = get_option('cowpay_settings');
-		// 		woo_cowpay_view('field-auth-token', array("options" => $options));
-		// 	}, // callback
-		// 	'cowpay',
-		// 	'cowpay_section_main'
-		// );
 		add_settings_field(
 			'YOUR_PHONE_NUMBER',
 			esc_html__('Phone Number', 'cowpay'),
@@ -270,6 +261,16 @@ class WooCowpayAdmin
 			'cowpay',
 			'cowpay_section_main',
 			array('value' => 1)
+		);
+		add_settings_field(
+			'fees',
+			esc_html__('Fees On Customer', 'cowpay'),
+			function () {
+				$options = get_option('cowpay_settings');
+				woo_cowpay_view('fees-on-customer', array("options" => $options));
+			},
+			'cowpay',
+			'cowpay_section_main'
 		);
 	}
 

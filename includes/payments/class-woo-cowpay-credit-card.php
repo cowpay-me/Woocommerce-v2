@@ -216,10 +216,11 @@ class WC_Payment_Gateway_Cowpay_CC extends WC_Payment_Gateway_Cowpay
     {
         $customer_order = wc_get_order($order_id);
         $request_params = $this->create_payment_request($order_id);
+        $fees = Cowpay_Admin_Settings::getInstance()->get_fees() == 1 ? true : false;
         $request_params = [
             "frameCode" => Cowpay_Admin_Settings::getInstance()->get_iframe_code(),
             "amount"=>$request_params['amount'],
-            "isFeesOnCustomer"=>true,
+            "isFeesOnCustomer"=>$fees,
             "customerMerchantProfileId"=>$request_params['customer_merchant_profile_id'],
             "merchantReferenceId"=>$request_params['merchant_reference_id'],
             "customerFirstName"=>$request_params['customer_name'],
